@@ -12,3 +12,5 @@ pom.xml
 .repl
 .nrepl-port
 *~
+.lein-failures
+.rebel_readline_history
