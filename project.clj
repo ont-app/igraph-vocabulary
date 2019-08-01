@@ -1,5 +1,5 @@
 (defproject ont-app/igraph-vocabulary "0.1.0-SNAPSHOT"
-  :description "FIXME: write this!"
+  :description "Utilities for using ont-app/vocabulary in ont-app/igraph"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
@@ -44,7 +44,7 @@
                ;; production. You can build this with:
                ;; lein cljsbuild once min
                {:id "min"
-                :source-paths ["src/cljs" "src/clj"]
+                :source-paths ["src/cljs" "src/clj" "src/cljc"]
                 :compiler {:output-to "resources/public/js/compiled/igraph_vocabulary.js"
                            :main ont-app.igraph-vocabulary.core
                            :optimizations :advanced
