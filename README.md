@@ -1,36 +1,14 @@
 # igraph-vocabulary
 
-FIXME: Write a one-line description of your library/project.
+FIXME: Support for creating keyword identifiers (KWIs) in IGraph-compliant graphs and aligning them with URIs in the Linked Data world. 
 
 ## Overview
 
-FIXME: Write a paragraph about the library/project and highlight its goals.
+A KWI is a namespaced clojure keyword used exactly the way a URI is used in RDF. Ideally URI should be importable as KWIs and integrated into IGraph-based models, and conversely KWIs should be exportable as standard URIs. 
 
-## Setup
+This builds on the ont-app.vocabulary library and the ont-app.igraph library, and is responsible for minimal functionality involving both. ont-app.igraph and ont-app.vocabulary should not know about each other.
 
-To get an interactive development environment run:
-
-    lein figwheel
-
-and open your browser at [localhost:3449](http://localhost:3449/).
-This will auto compile and send all changes to the browser without the
-need to reload. After the compilation process is complete, you will
-get a Browser Connected REPL. An easy way to try it is:
-
-    (js/alert "Am I connected?")
-
-and you should see an alert in the browser window.
-
-To clean all compiled files:
-
-    lein clean
-
-To create a production build run:
-
-    lein do clean, cljsbuild once min
-
-And open your browser in `resources/public/index.html`. You will not
-get live reloading, nor a REPL. 
+Watch this space for more documentation.
 
 ## License
 
