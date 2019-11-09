@@ -1,5 +1,7 @@
 (ns ont-app.igraph-vocabulary.core
   (:require
+   [clojure.string :as str]
+   ;; local libraries
    [ont-app.igraph.core :as igraph :refer [traverse add]]
    [ont-app.igraph.graph :as g]
    [ont-app.vocabulary.core :as voc]
@@ -15,6 +17,51 @@
    )
 
 ;; NO READER MACROS BEYOND THIS POINT
+
+
+;; MINTING NEW KEYWORD IDENTIFIERS
+
+(defn mint-kwi-dispatch
+  [head-kwi & args]
+  head-kwi)
+
+(defmulti mint-kwi
+  "Args: [<head-kwi> & args]. Returns a canonical kwi.
+  Where
+  <head-kwi> initiates the KWI (typically the name of an existing class in some
+    model).
+  <args> := [<property> <value>, ...], .s.t. the named value is uniquely distinguished.
+  E.g: The default method simply joins arguments on _ as follows:
+    (mint-kwi :myNs/MyClass :myNs/prop1 'foo' :myNs/prop2 'bar)
+    -> :myNs/MyClass_prop1_foo_prop2_bar, but overriding methods will be
+    dispatched on <head>
+  Compiled arguments are rendered as their hashes.
+  "
+  mint-kwi-dispatch
+  )
+
+(defn igraph? [x]
+  ;; TODO: quick temporary fix
+  (= (type x) (g/make-graph)))
+
+(defmethod mint-kwi :default
+  [head-kwi & args]
+  ;; <head-kwi> + hash of sorted args.
+  (assert (not (some #(nil? %) args)))
+  (let [_ns (namespace head-kwi)
+        _name (name head-kwi)
+        stringify (fn [x]
+                    (cond (string? x) x
+                          (keyword? x) (name x)
+                          (sequential? x) (hash x)
+                          (igraph? x) (hash x)
+                          :default (str x))) 
+        kwi (keyword _ns (str _name "_" (str/join "_" (map stringify args))))
+        ]
+    kwi))
+
+
+;; READING EDN TRANSLATIONS OF RDF SOURCE
 ^:reduce-s-p-o-fn
 (defn resolve-namespace-prefixes [g s p o]
   "Returns <g'> with [<s'> <p'> <o'>] added
@@ -28,7 +75,14 @@ Note: This is typically used when some edn source was generated in an environmen
   (letfn [(resolve-ns-prefix
             [maybe-uri]
             (if (keyword? maybe-uri)
-              (voc/keyword-for (subs (str maybe-uri) 1))
+              (let [_ns (namespace maybe-uri)
+                    name (name maybe-uri)]
+                (if _ns
+                  ;; this is already assigned a namespace
+                  maybe-uri
+                  ;; else no namespace assume encoded http uri...
+                  (voc/keyword-for
+                   (voc/decode-uri-string name))))
               ;; else not a kw
               maybe-uri))
            ]

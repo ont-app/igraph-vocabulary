@@ -9,6 +9,10 @@
             [ont-app.igraph-vocabulary.core :as igv]
             ))
 
+(deftest mint-kwi-test
+  (is (= (igv/mint-kwi ::Blah ::blah "blah")
+         ::Blah_blah_blah)))
+
 (deftest resolve-namespace-prefixes-test
   (testing "namespace prefixes should be resolved"
     (is (= (normal-form
