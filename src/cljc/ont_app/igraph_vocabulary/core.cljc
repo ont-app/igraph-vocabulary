@@ -5,8 +5,18 @@
    [ont-app.igraph.core :as igraph :refer [traverse add]]
    [ont-app.igraph.graph :as g]
    [ont-app.vocabulary.core :as voc]
+   [ont-app.igraph-vocabulary.ont :as ont]
    )
   )
+
+(voc/cljc-put-ns-meta!
+ 'ont-app.igraph-vocabulary.core
+ {
+  :voc/mapsTo 'ont-app.igraph-vocabulary.ont
+  }
+ )
+
+(def ontology ont/ontology)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FUN WITH READER MACROS
@@ -20,7 +30,6 @@
 
 
 ;; MINTING NEW KEYWORD IDENTIFIERS
-
 (defn mint-kwi-dispatch
   [head-kwi & args]
   head-kwi)
