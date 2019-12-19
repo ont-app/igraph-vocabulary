@@ -7,6 +7,7 @@
             [ont-app.igraph.graph :as g]
             [ont-app.vocabulary.core :as voc]
             [ont-app.igraph-vocabulary.core :as igv]
+            [ont-app.igraph-vocabulary.io :as igv-io]
             ))
 
 (deftest mint-kwi-test

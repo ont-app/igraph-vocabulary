@@ -1,6 +1,7 @@
 (ns user
-  (:require
-   [figwheel-sidecar.repl-api :as f]))
+  #_(:require
+     [figwheel-sidecar.repl-api :as f]
+     ))
 
 ;; user is a namespace that the Clojure runtime looks for and
 ;; loads if its available
@@ -19,7 +20,7 @@
 ;; and Component https://github.com/stuartsierra/component
 
 
-(defn fig-start
+#_(defn fig-start
   "This starts the figwheel server and watch based auto-compiler."
   []
   ;; this call will only work as long as your :cljsbuild and
@@ -29,14 +30,14 @@
   ;; otherwise you can pass a configuration into start-figwheel! manually
   (f/start-figwheel!))
 
-(defn fig-stop
+#_(defn fig-stop
   "Stop the figwheel server and watch based auto-compiler."
   []
   (f/stop-figwheel!))
 
 ;; if you are in an nREPL environment you will need to make sure you
 ;; have setup piggieback for this to work
-(defn cljs-repl
+#_(defn cljs-repl
   "Launch a ClojureScript REPL that is connected to your build and host environment."
   []
   (f/cljs-repl))

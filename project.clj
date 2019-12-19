@@ -11,88 +11,65 @@
                  [org.clojure/core.async  "0.4.500"]
                  [ont-app/igraph "0.1.4-SNAPSHOT"]
                  [ont-app/vocabulary "0.1.0-SNAPSHOT"]
+                 [lein-doo "0.1.11"]
                  ]
 
-  :plugins [[lein-figwheel "0.5.19"]
-            [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]]
+  :plugins [[lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]
+            [lein-doo "0.1.11"]
+            ]
 
-  :source-paths ["src/cljc" "src/clj" "src/cljs"]
-  :test-paths ["test/clj"]
-  :cljsbuild {:builds
-              [{:id "dev"
-                :source-paths ["src/cljs" "src/clj" "src/cljc"]
-
-                ;; The presence of a :figwheel configuration here
-                ;; will cause figwheel to inject the figwheel client
-                ;; into your build
-                :figwheel {:on-jsload "ont-app.igraph-vocabulary.core/on-js-reload"
-                           ;; :open-urls will pop open your application
-                           ;; in the default browser once Figwheel has
-                           ;; started and compiled your application.
-                           ;; Comment this out once it no longer serves you.
-                           :open-urls ["http://localhost:3450/index.html"]}
-
-                :compiler {:main ont-app.igraph-vocabulary.core
-                           :asset-path "js/compiled/out"
-                           :output-to "resources/public/js/compiled/igraph_vocabulary.js"
-                           :output-dir "resources/public/js/compiled/out"
-                           :source-map-timestamp true
-                           ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
-                           ;; https://github.com/binaryage/cljs-devtools
-                           :preloads [devtools.preload]}}
-               ;; This next build is a compressed minified build for
-               ;; production. You can build this with:
-               ;; lein cljsbuild once min
-               {:id "min"
-                :source-paths ["src/cljs" "src/clj" "src/cljc"]
-                :compiler {:output-to "resources/public/js/compiled/igraph_vocabulary.js"
-                           :main ont-app.igraph-vocabulary.core
-                           :optimizations :advanced
-                           :pretty-print false}}]}
-
-  :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
-             :server-port 3450 ;; default
-             ;; :server-ip "127.0.0.1"
-
-             :css-dirs ["resources/public/css"] ;; watch and update CSS
-
-             ;; Start an nREPL server into the running figwheel process
-             ;; :nrepl-port 7888
-
-             ;; Server Ring Handler (optional)
-             ;; if you want to embed a ring handler into the figwheel http-kit
-             ;; server, this is for simple ring servers, if this
-
-             ;; doesn't work for you just run your own server :) (see lein-ring)
-
-             ;; :ring-handler hello_world.server/handler
-
-             ;; To be able to open files in your editor from the heads up display
-             ;; you will need to put a script on your path.
-             ;; that script will have to take a file path and a line number
-             ;; ie. in  ~/bin/myfile-opener
-             ;; #! /bin/sh
-             ;; emacsclient -n +$2 $1
-             ;;
-             ;; :open-file-command "myfile-opener"
-
-             ;; if you are using emacsclient you can just use
-             ;; :open-file-command "emacsclient"
-
-             ;; if you want to disable the REPL
-             ;; :repl false
-
-             ;; to configure a different figwheel logfile path
-             ;; :server-logfile "tmp/logs/figwheel-logfile.log"
-
-             ;; to pipe all the output to the repl
-             ;; :server-logfile false
-             }
+  :source-paths ["src"]
+  :test-paths ["src" "test"]
+  :cljsbuild
+  {:test-commands {"test" ["lein" "doo" "node" "test" "once"]}
+   :builds
+   {:dev
+    {
+     :source-paths ["src"]
+     :compiler {:main ont-app.igraph-vocabulary.core
+                :asset-path "js/compiled/out"
+                :output-to
+                "resources/public/js/compiled/igraph_vocabulary.js"
+                :output-dir "resources/public/js/compiled/out"
+                :source-map-timestamp true
+                ;; To console.log CLJS data-structures make sure you
+                ;; enable devtools in Chrome
+                ;; https://github.com/binaryage/cljs-devtools
+                :preloads [devtools.preload]
+                :optimizations :none
+                }}
+    :test
+    {:source-paths ["src" "test"]
+     :compiler {
+                :main ont-app.igraph-vocabulary.doo
+                :target :nodejs
+                :asset-path "resources/test/js/compiled/out"
+                :output-to "resources/test/compiled.js"
+                :output-dir "resources/test/js/compiled/out"
+                :optimizations :none ;; :advanced ;;:none
+                }
+     }
+    ;; This next build is a compressed minified build for
+    ;; production. You can build this with:
+    ;; lein cljsbuild once min
+    :min
+    {
+     :source-paths ["src"]
+     :compiler {:output-to
+                "resources/public/js/compiled/igraph_vocabulary.js"
+                :main ont-app.igraph-vocabulary.core
+                :optimizations :advanced
+                :pretty-print false}
+     }
+    } ;; value of :builds
+   } ;; vallue of :cljsbuild
 
   :profiles {:dev {:dependencies [[binaryage/devtools "0.9.10"]
-                                  [figwheel-sidecar "0.5.19"]]
+                                  ]
                    ;; need to add dev source path here to get user.clj loaded
-                   :source-paths ["src/cljs" "src/clj" "src/cljc" "dev"]
+                   :source-paths ["src" "dev"]
                    ;; need to add the compliled assets to the :clean-targets
                    :clean-targets ^{:protect false} ["resources/public/js/compiled"
-                                                     :target-path]}})
+                                                      :target-path]}}
+  
+  ) ;; defproject
