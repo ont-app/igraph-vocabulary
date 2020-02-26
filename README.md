@@ -2,6 +2,22 @@
 
 Support for creating keyword identifiers (KWIs) in IGraph-compliant graphs and aligning them with URIs in the Linked Data world. 
 
+## Dependencies
+
+Available at [Clojars](https://clojars.org/ont-app/igraph-vocabulary).
+
+[![Clojars Project](https://img.shields.io/clojars/v/ont-app/igraph-vocabulary.svg)](https://clojars.org/ont-app/igraph-vocabulary)
+
+Require thus:
+
+```
+(ns ont-app.igraph-vocabulary.core-test
+(:require 
+  [
+   [ont-app.igraph-vocabulary.core :as igv]
+   ))
+```
+
 ## Overview
 
 A KWI is a namespaced clojure keyword used exactly the way a URI is
@@ -15,6 +31,7 @@ both. ont-app.igraph and ont-app.vocabulary should not know about each
 other.
 
 Watch this space for more documentation.
+
 
 ## License
 
