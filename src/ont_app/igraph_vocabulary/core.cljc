@@ -71,7 +71,7 @@
 
 
 ;; READING EDN TRANSLATIONS OF RDF SOURCE
-^:reduce-s-p-o-fn
+^:reduce-spo-fn
 (defn resolve-namespace-prefixes [g s p o]
   "Returns <g'> with [<s'> <p'> <o'>] added
 Where
@@ -81,6 +81,7 @@ Note: This is typically used when some edn source was generated in an environmen
   which only included the standard namespaces, but non-default namespaces
   were used in the origional ttl source.
 "
+  
   (letfn [(resolve-ns-prefix
             [maybe-uri]
             (if (keyword? maybe-uri)
@@ -88,7 +89,12 @@ Note: This is typically used when some edn source was generated in an environmen
                     name (name maybe-uri)]
                 (if _ns
                   ;; this is already assigned a namespace
-                  maybe-uri
+                  (if (re-matches #"http(s)?" _ns)
+                    (throw (ex-info "maybe-uri is a URL. use (voc/keyword-for ...)"
+                                    {:type ::BadURIFormat
+                                     :uri maybe-uri
+                                     }))
+                    maybe-uri)
                   ;; else no namespace assume encoded http uri...
                   (voc/keyword-for
                    (voc/decode-uri-string name))))

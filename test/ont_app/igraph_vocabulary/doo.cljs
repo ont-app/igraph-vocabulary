@@ -4,5 +4,5 @@
             ))
 
 (doo-tests
- 'ont-app.igraph.core-test
+ 'ont-app.igraph-vocabulary.core-test
  )
