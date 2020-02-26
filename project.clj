@@ -39,6 +39,8 @@
     } ;; value of :builds
    } ;; vallue of :cljsbuild
 
+  :codox {:output-path "doc"}
+
   :profiles {:dev {;; need to add dev source path here to get user.clj loaded
                    :source-paths ["src" "dev"]
                    }}
