@@ -13,8 +13,8 @@
                  [org.clojure/clojure "1.10.1"]
                  [org.clojure/clojurescript "1.10.597"]
                  ;; ont-app
-                 [ont-app/igraph "0.1.4"]
-                 [ont-app/vocabulary "0.1.0"]
+                 [ont-app/igraph "0.1.5-SNAPSHOT"]
+                 [ont-app/vocabulary "0.1.1-SNAPSHOT"]
                  [lein-doo "0.1.11"]
                  ]
 
