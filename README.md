@@ -6,6 +6,7 @@ Support for creating keyword identifiers (KWIs) in IGraph-compliant graphs and a
 - [Dependencies](#h2-dependencies)
 - [Overview](#h2-overview)
 - [The `mint-kwi` method](#h2-the-mint-kwi-method)
+- [The `resolve-namespace-prefixes` function](#resolve-namespace-prefixes-function)
 - [Supporting ontology](#h2-supporting-ontology)
 - [License](#h2-license)
 
@@ -29,12 +30,14 @@ Require thus:
 <a name="h2-overview"></a>
 ## Overview
 
-This builds on the ont-app.vocabulary library and the ont-app.igraph
-library, and is responsible for basic functionality involving
-both. ont-app.igraph and ont-app.vocabulary are independent libraries,
-and this library is provided to host basic logic that combines the
-two.
-
+`ont-app/igraph` and `ont-app/vocabulary` are independent
+libraries. The former defining a generic graph-based primitive
+container, and the latter defining a way of treating namespaced
+Keyword Identifies (KWIs) as though they were URIs comprising a public
+vocabulary, integrated with URIs. `ont-app/igraph-vocabulary` is
+responsible for basic functionality involving the intersection or
+these two, providing some basic ontological constructs that express
+common features of IGraph implementations.
 
 A KWI is a namespaced clojure keyword used exactly the way a URI is
 used in RDF. Ideally URI should be importable as KWIs and integrated
@@ -48,7 +51,8 @@ standard RDF-type URIs.
 When building a model in a graph representation, it's a common
 occurrence to need to create canonically named KWIs on the fly,
 especially to identify newly encountered instances of some class of
-entities.
+entities. For example `:employee/123`, mappable to
+`http://rdf.mycompany.com/employee#123`.
 
 The _mint-kwi_ method returns a keyword identifier based on a _head_
 keyword (which typically names a class) and any number of arguments
@@ -108,10 +112,59 @@ We can write a custom method dispatched on the head:
 :test/Example_2
 > 
 ```
+<a name="h2-resolve-namespace-prefixes-function"></a>
+## The `resolve-namespace-prefixes` function
 
+It may be the case that you are referencing a graph whose URIs may be
+in need of translating into KWIs. In such cases, you can apply this function as a map-spo:
+
+```
+> (def g (igraph/reduce-spo resove-namespace-prefixes g))
+```
+
+This will reset the value of igraph _g_ with its URIs translated into
+their equivalent KWIs, wherever the appropriate namespace metadata has
+been supplied.
 
 <a name="h2-supporting-ontology"></a>
 ## Supporting ontology
+
+The _igraph_ namespace.
+
+This dedicated to naming constructs pertinent to implementations of IGraph.
+
+```
+(voc/put-ns-meta!
+ 'ont-app.igraph.core
+ {
+  :vann/preferredNamespacePrefix "igraph"
+  :vann/preferredNamespaceUri "http://rdf.naturallexicon.org/ont-app/igraph/ont#"
+  }
+ )
+```
+
+| KWI | description |
+| --- | --- | --- |
+| CompiledObject | A graph element compiled in the native execution environment, typically a function, a graph, or a vector. This is platform-specific. The intent here is to facilitate inter-operation with other platforms, e.g. python, using a shared ontology. |
+| Function | A compiled object executable in the native execution environment as a pure function |
+| Vector | A compiled container holding an integer-indexed sequence |
+| Graph | An compiled implementation of IGraph |
+| projectedRange | Asserts that some property will have _y_ in its range, where _y_ is a subclass of _CompiledObject_. As a compiled object, this is neither a class nor a literal. |
+| compiledAs | "_kwi_ compiledAs _obj_" asserts that an entity identified across platforms as _kwi_ (or its equivalent URI) is implemented in the current exectuion environment as CompiledObject _obj_ |
+| subsumedBy | "_x_ subsumedBy _y_" asserts a subsumption relationship between _x_ and _y_. This may be used in Clojure to derive/underive values to use in method dispatch, for example. |
+
+### default `subsumedBy` declarations
+
+The following subsumedBy declarations are defined in _ont.cljc_:
+
+```
+  [:rdf/type :rdfs/subPropertyOf :igraph/subsumedBy]
+  [:rdfs/subClassOf :rdfs/subPropertyOf :igraph/subsumedBy]
+  [:rdfs/subPropertyOf :rdfs/subPropertyOf :igraph/subsumedBy]
+
+```
+
+
 <a name="h2-license"></a>
 ## License
 

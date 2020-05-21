@@ -108,6 +108,7 @@ Note: This is typically used when some edn source was generated in an environmen
 ;;;;;;;;;;;;;;;;
 ;; RDF-CENTRIC
 ;;;;;;;;;;;;;;;;
+;; TODO: move to ont-app/rdf library
 
 ^traversal-fn
 (defn rdfs-subsumed-by
