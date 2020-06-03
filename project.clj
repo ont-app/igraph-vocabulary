@@ -1,15 +1,20 @@
-(defproject ont-app/igraph-vocabulary "0.1.0"
+(defproject ont-app/igraph-vocabulary "0.1.1"
   :description "Utilities for using ont-app/vocabulary in ont-app/igraph"
-  :url "https://github.com/ont-app/vocabulary"
+  :url "https://github.com/ont-app/igraph-vocabulary"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :min-lein-version "2.9.1"
 
-  :dependencies [[org.clojure/clojure "1.10.0"]
+  :dependencies [;; for deps :tree
+                 [com.google.errorprone/error_prone_annotations "2.1.3"]
+                 [com.google.code.findbugs/jsr305 "3.0.2"]
+                 ;; clojure
+                 [org.clojure/clojure "1.10.1"]
                  [org.clojure/clojurescript "1.10.597"]
-                 [ont-app/igraph "0.1.4"]
-                 [ont-app/vocabulary "0.1.0"]
+                 ;; ont-app
+                 [ont-app/igraph "0.1.5"]
+                 [ont-app/vocabulary "0.1.1"]
                  [lein-doo "0.1.11"]
                  ]
 

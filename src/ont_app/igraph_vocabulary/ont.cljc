@@ -13,12 +13,22 @@
 
    ))
 
+(voc/put-ns-meta!
+ 'ont-app.igraph.core
+ {
+  :vann/preferredNamespacePrefix "igraph"
+  :vann/preferredNamespaceUri "http://rdf.naturallexicon.org/ont-app/igraph/ont#"
+  }
+ )
+
+ 
 (def ontology-ref (atom (make-graph)))
 
-(defn update-ontology [to-add]
+
+(defn update-ontology! [to-add]
   (swap! ontology-ref add to-add))
 
-(update-ontology
+(update-ontology!
  [
   [:igraph/CompiledObject
    :rdfs/comment "Refers to a graph element compiled in the native execution 

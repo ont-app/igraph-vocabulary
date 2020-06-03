@@ -6,7 +6,8 @@
             [ont-app.igraph.core :refer [normal-form add reduce-spo]]
             [ont-app.igraph.graph :as g]
             [ont-app.vocabulary.core :as voc]
-            [ont-app.igraph-vocabulary.core :as igv]
+            [ont-app.vocabulary.lstr] ;; enable the #lstr reader
+            [ont-app.igraph-vocabulary.core :as igv :refer [mint-kwi]]
             [ont-app.igraph-vocabulary.io :as igv-io]
             ))
 
@@ -25,5 +26,9 @@
                     :p
                     :o]])))
            {:rdf/blah {:p #{:o}}}))))
+
+(deftest lstr-test
+  (is (= (str #lstr "asdf@en")
+         "asdf")))
 
                             

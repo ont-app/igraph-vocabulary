@@ -3,6 +3,7 @@ resources/test/
 figwheel_server.log
 pom.xml
 *jar
+/dev/
 /lib/
 /classes/
 /out/
@@ -16,3 +17,4 @@ pom.xml
 *#
 .lein-failures
 .rebel_readline_history
+pom.xml.asc

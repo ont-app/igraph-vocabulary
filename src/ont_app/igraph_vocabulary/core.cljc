@@ -71,8 +71,8 @@
 
 
 ;; READING EDN TRANSLATIONS OF RDF SOURCE
-^:reduce-spo-fn
-(defn resolve-namespace-prefixes [g s p o]
+;; reduce-spo function 
+(defn resolve-namespace-prefixes 
   "Returns <g'> with [<s'> <p'> <o'>] added
 Where
 Each of <s'> <p'> <o'> may have had its long URI abbreviated for currently
@@ -81,7 +81,7 @@ Note: This is typically used when some edn source was generated in an environmen
   which only included the standard namespaces, but non-default namespaces
   were used in the origional ttl source.
 "
-  
+  [g s p o]
   (letfn [(resolve-ns-prefix
             [maybe-uri]
             (if (keyword? maybe-uri)
@@ -108,8 +108,9 @@ Note: This is typically used when some edn source was generated in an environmen
 ;;;;;;;;;;;;;;;;
 ;; RDF-CENTRIC
 ;;;;;;;;;;;;;;;;
+;; TODO: move to ont-app/rdf library
 
-^traversal-fn
+;; tranfersal function
 (defn rdfs-subsumed-by
   "Returns [context acc' #{}] for `g` `context` `acc` `queue`
   Where
