@@ -1,8 +1,6 @@
-<img src="http://ericdscott.com/NaturalLexiconLogo.png" alt="NaturalLexicon logo" :width=100 height=100/>
+# <img src="http://ericdscott.com/NaturalLexiconLogo.png" alt="NaturalLexicon logo" :width=100 height=100/> ont-app/igraph-vocabulary
 
-# ont-app/igraph-vocabulary
-
-Support for creating keyword identifiers (KWIs) in IGraph-compliant graphs and aligning data in _IGraph_ graphs to data in other formats. 
+Support for creating keyword identifiers (KWIs) in [IGraph](https://github.com/ont-app/igraph)-compliant graphs and aligning data in _IGraph_ graphs to data in other formats. 
 
 ## Contents
 - [Dependencies](#h2-dependencies)
@@ -93,7 +91,6 @@ the ns):
  [ont-app.igraph-vocabulary.core :as igv :refer [mint-kwi]]
  [ont-app.vocabulary.core :as voc]
  ))
-
 ```
 
 The default method will simply concatenate the names of the keywords provided:
@@ -153,7 +150,7 @@ These declarations are defined as the constant _igv/ontology_, an
 instance of the simple IGraph implementation
 _ont-app.igraph.graph/Graph_.
 
-The _igraph_ namespace.
+### The _igraph_ namespace.
 
 This dedicated to naming constructs pertinent to implementations of IGraph.
 
@@ -167,7 +164,7 @@ This dedicated to naming constructs pertinent to implementations of IGraph.
  )
 ```
 
-| KWI | type | description |
+| KWI (_:igraph/*_) | type | description |
 | --- | --- | --- |
 | CompiledObject | Class | A graph element compiled in the native execution environment, typically a function, a graph, or a vector. This is platform-specific. The intent here is to facilitate inter-operation with other platforms, e.g. python, using a shared ontology. |
 | Function | CompiledObject | A compiled object executable in the native execution environment as a pure function |
@@ -186,7 +183,6 @@ The following _subsumedBy_ declarations are defined in _ont-app.igraph-vocabular
   [:rdf/type :rdfs/subPropertyOf :igraph/subsumedBy]
   [:rdfs/subClassOf :rdfs/subPropertyOf :igraph/subsumedBy]
   [:rdfs/subPropertyOf :rdfs/subPropertyOf :igraph/subsumedBy]
-
 ```
 
 <a name="h2-license"></a>
