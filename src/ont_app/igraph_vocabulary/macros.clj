@@ -6,7 +6,8 @@
    )
   )
   
-(defmacro graph-source [edn-source]
+(defmacro graph-source 
   "Returns the contents of <edn-source> read in with updated ns metadata.
 NOTE: typical usage is to embed contents of an ontology into clj(c/s) code."
+  [edn-source]
   (normal-form (ig-io/read-graph-from-source edn-source)))
