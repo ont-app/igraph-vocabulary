@@ -5,11 +5,12 @@
    [ont-app.igraph.core :as igraph :refer [traverse add]]
    [ont-app.igraph.graph :as g]
    [ont-app.vocabulary.core :as voc]
+   [ont-app.vocabulary.format :as fmt]
    [ont-app.igraph-vocabulary.ont :as ont]
    )
   )
 
-(voc/cljc-put-ns-meta!
+(voc/put-ns-meta!
  'ont-app.igraph-vocabulary.core
  {
   :voc/mapsTo 'ont-app.igraph-vocabulary.ont
@@ -97,7 +98,7 @@ Note: This is typically used when some edn source was generated in an environmen
                     maybe-uri)
                   ;; else no namespace assume encoded http uri...
                   (voc/keyword-for
-                   (voc/decode-uri-string name))))
+                   (fmt/decode-kw-name name))))
               ;; else not a kw
               maybe-uri))
            ]

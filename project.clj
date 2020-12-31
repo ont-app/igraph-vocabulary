@@ -14,7 +14,7 @@
                  [org.clojure/clojurescript "1.10.597"]
                  ;; ont-app
                  [ont-app/igraph "0.1.5"]
-                 [ont-app/vocabulary "0.1.1"]
+                 [ont-app/vocabulary "0.1.2"]
                  [lein-doo "0.1.11"]
                  ]
 
