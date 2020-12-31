@@ -1,4 +1,4 @@
-(defproject ont-app/igraph-vocabulary "0.1.1"
+(defproject ont-app/igraph-vocabulary "0.1.2"
   :description "Utilities for using ont-app/vocabulary in ont-app/igraph"
   :url "https://github.com/ont-app/igraph-vocabulary"
   :license {:name "Eclipse Public License"
@@ -14,7 +14,7 @@
                  [org.clojure/clojurescript "1.10.597"]
                  ;; ont-app
                  [ont-app/igraph "0.1.5"]
-                 [ont-app/vocabulary "0.1.1"]
+                 [ont-app/vocabulary "0.1.2"]
                  [lein-doo "0.1.11"]
                  ]
 

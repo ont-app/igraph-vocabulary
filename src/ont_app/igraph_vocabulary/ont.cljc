@@ -1,4 +1,5 @@
 (ns ont-app.igraph-vocabulary.ont
+  "The supporting vocabulary for IGraph-related applications"
   (:require
    [clojure.string :as str]
    ;;
@@ -22,10 +23,10 @@
  )
 
  
-(def ontology-ref (atom (make-graph)))
+(def ^:private ontology-ref (atom (make-graph)))
 
 
-(defn update-ontology! [to-add]
+(defn ^:private update-ontology! [to-add]
   (swap! ontology-ref add to-add))
 
 (update-ontology!
@@ -76,4 +77,6 @@ derive/underive declaration in clojure."
   ]
  )
 
-(def ontology @ontology-ref)
+(def ontology
+  "The IGraph holding the vocabulary supporting IGraph-related stuff"
+  @ontology-ref)

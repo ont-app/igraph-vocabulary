@@ -10,7 +10,11 @@
   )
 
 #?(:clj
-   (defn read-graph-from-source [edn-source]
+   (defn read-graph-from-source
+     "Returns an instance of IGraph from `edn-source`
+  Where
+  - `edn-source` is a file in EDN format"
+     [edn-source]
      (as-> (g/make-graph) g
        (add g (-> edn-source
                   io/resource
