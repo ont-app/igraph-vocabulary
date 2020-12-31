@@ -17,7 +17,8 @@
   }
  )
 
-(def ontology ont/ontology)
+(def ontology "Supporting ontology for IGraph stuff"
+  ont/ontology)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FUN WITH READER MACROS
@@ -32,27 +33,30 @@
 
 ;; MINTING NEW KEYWORD IDENTIFIERS
 (defn mint-kwi-dispatch
+  "Returns `dispatch-key` for the `mint-kwi` method
+  Where:
+  `dispatch-key` is a keyword"
   [head-kwi & args]
   head-kwi)
 
 (defmulti mint-kwi
-  "Args: [<head-kwi> & args]. Returns a canonical kwi.
+  "Args: [`head-kwi` & `args`]. Returns a canonical kwi.
   Where
-  <head-kwi> initiates the KWI (typically the name of an existing class in some
+  - `head-kwi` initiates the KWI (typically the name of an existing class in some
     model).
-  <args> := [<property> <value>, ...], .s.t. the named value is uniquely distinguished.
+  - `args` := [`property` `value`, ...], .s.t. the named value is uniquely distinguished.
   E.g: The default method simply joins arguments on _ as follows:
     (mint-kwi :myNs/MyClass :myNs/prop1 'foo' :myNs/prop2 'bar)
     -> :myNs/MyClass_prop1_foo_prop2_bar, but overriding methods will be
-    dispatched on <head>
+    dispatched on `head`
   Compiled arguments are rendered as their hashes.
   "
   mint-kwi-dispatch
   )
 
-(defn igraph? [x]
+(defn ^:private igraph? [x]
   ;; TODO: quick temporary fix
-  (= (type x) (g/make-graph)))
+  (= (type x) (type (g/make-graph))))
 
 (defmethod mint-kwi :default
   [head-kwi & args]
@@ -74,9 +78,9 @@
 ;; READING EDN TRANSLATIONS OF RDF SOURCE
 ;; reduce-spo function 
 (defn resolve-namespace-prefixes 
-  "Returns <g'> with [<s'> <p'> <o'>] added
+  "Returns `g'` with [`s'` `p'` `o'`] added
 Where
-Each of <s'> <p'> <o'> may have had its long URI abbreviated for currently
+Each of `s'` `p'` `o'` may have had its long URI abbreviated for currently
 declared namespaces prefixes.
 Note: This is typically used when some edn source was generated in an environment
   which only included the standard namespaces, but non-default namespaces
@@ -115,13 +119,13 @@ Note: This is typically used when some edn source was generated in an environmen
 (defn rdfs-subsumed-by
   "Returns [context acc' #{}] for `g` `context` `acc` `queue`
   Where
-  <g> implements igraph
-  <context> is a traversal context, which will be returned unchanged.
+  - `g` implements igraph
+  - `context` is a traversal context, which will be returned unchanged.
     If there is a :seek function supplied, the traversal will stop early.
-  <acc'> := #{<class> ...}
-  <class> is a superclass of the type associated with some <target>
-  <queue> := [<target>, ...]
-  <target> is a subject in <g>, and member of <queue>
+  - `acc'` := #{`class` ...}
+  - `class` is a superclass of the type associated with some `target`
+  - `queue` := [`target`, ...]
+  - `target` is a subject in `g`, and member of `queue`
   SEE ALSO the docs for igraph traversal
   NOTE equivalent of SPARQL property path 'a/rdfs:subClassOf*'
   "
@@ -135,18 +139,3 @@ Note: This is typically used when some edn source was generated in an environmen
         )
    #{}])
 
-;; ^traversal-fn
-(defn has-owl-restriction
-  "
-  <context> may contain a :seek parameter, so we apply it to last traversal.
-    NOTE equivalent of SPARQL property path 'a/rdfs:subClassOf*/owl:subClassOf+'
-  "
-  ;; TODO: this should probably be moved elsewhere no longer used in this
-  ;; module, but should be useful somewhere
-  [g context acc queue]
-  [context
-   (->> queue
-        (traverse g rdfs-subsumed-by #{})
-        (traverse g (igraph/traverse-link :owl/subClassOf) #{})
-        (traverse g (igraph/transitive-closure :owl/subClassOf) context #{}))
-   #{}])

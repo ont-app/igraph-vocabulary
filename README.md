@@ -170,7 +170,7 @@ This dedicated to naming constructs pertinent to implementations of IGraph.
 | Function | CompiledObject | A compiled object executable in the native execution environment as a pure function |
 | Vector | CompiledObject | A compiled container holding an integer-indexed sequence |
 | Graph | CompiledObject | An compiled implementation of IGraph |
-| projectedRange | property | "_p_ `projectedRange` _obj_" asserts that the property _p_ will have _obj_ in its range, where _obj_ is a subclass of _CompiledObject_. As a compiled object, this is neither a class nor a literal. |
+| projectedRange | property | "_p_ `projectedRange` _obj_" asserts that the property _p_ will have _obj_ in its range, where _obj_ is a subclass of _CompiledObject_. As a compiled object, `obj` is neither a class nor a literal. |
 | compiledAs | property | "_kwi_ `compiledAs` _obj_" asserts that an entity identified across platforms as _kwi_ (or its equivalent URI) is implemented in the current exectuion environment as CompiledObject _obj_ |
 | subsumedBy | property | "_x_ subsumedBy _y_" asserts a subsumption relationship between _x_ and _y_. This may be used in Clojure to [derive](https://clojuredocs.org/clojure.core/derive)/[underive](https://clojuredocs.org/clojure.core/underive) values to use in method dispatch, for example. |
 
