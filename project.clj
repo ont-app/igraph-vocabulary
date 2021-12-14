@@ -6,16 +6,15 @@
 
   :min-lein-version "2.9.1"
 
-  :dependencies [;; for deps :tree
-                 [com.google.errorprone/error_prone_annotations "2.4.0"]
-                 [com.google.code.findbugs/jsr305 "3.0.2"]
+  :dependencies [;; deps tree disambiguation
+                 ;; <none>
                  ;; clojure
-                 [org.clojure/clojure "1.10.1"]
-                 [org.clojure/clojurescript "1.10.773"]
+                 [org.clojure/clojure "1.10.3"]
+                 [org.clojure/clojurescript "1.10.896"]
                  ;; ont-app
-                 [ont-app/igraph "0.1.5"]
-                 [ont-app/vocabulary "0.1.2"]
-                 [lein-doo "0.1.11"]
+                 [ont-app/igraph "0.1.7"]
+                 [ont-app/vocabulary "0.1.4"]
+                 
                  ]
 
   :plugins [[lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]
@@ -48,6 +47,8 @@
 
   :profiles {:dev {;; need to add dev source path here to get user.clj loaded
                    :source-paths ["src" "dev"]
+                   :dependencies [[lein-doo "0.1.11"]
+                                  ]
                    }}
                    
                    
