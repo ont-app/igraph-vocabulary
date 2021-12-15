@@ -11,7 +11,7 @@
                  [org.clojure/clojure "1.10.3"]
                  [org.clojure/clojurescript "1.10.896"]
                  ;; ont-app
-                 [ont-app/igraph "0.1.7"]
+                 [ont-app/igraph "0.1.8-SNAPSHOT"]
                  [ont-app/vocabulary "0.1.4"]
                  ]
 
