@@ -6,15 +6,13 @@
 
   :min-lein-version "2.9.1"
 
-  :dependencies [;; for deps :tree
-                 [com.google.errorprone/error_prone_annotations "2.10.0"]
-                 [com.google.code.findbugs/jsr305 "3.0.2"]
+  :dependencies [
                  ;; clojure
                  [org.clojure/clojure "1.10.3"]
                  [org.clojure/clojurescript "1.10.896"]
                  ;; ont-app
                  [ont-app/igraph "0.1.7"]
-                 [ont-app/vocabulary "0.1.2"]
+                 [ont-app/vocabulary "0.1.4"]
                  ]
 
   :plugins [[lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]
