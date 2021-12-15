@@ -7,9 +7,6 @@
   :min-lein-version "2.9.1"
 
   :dependencies [
-                 ;; clojure
-                 [org.clojure/clojure "1.10.3"]
-                 [org.clojure/clojurescript "1.10.896"]
                  ;; ont-app
                  [ont-app/igraph "0.1.8-SNAPSHOT"]
                  [ont-app/vocabulary "0.1.4"]
@@ -45,7 +42,9 @@
 
   :profiles {:dev {;; need to add dev source path here to get user.clj loaded
                    :source-paths ["src" "dev"]
-                   :dependencies [[lein-doo "0.1.11"]
+                   :dependencies [[org.clojure/clojure "1.10.3"]
+                                  [org.clojure/clojurescript "1.10.896"]
+                                  [lein-doo "0.1.11"]
                                   ]
                    }}
                    
