@@ -1,0 +1,43 @@
+{
+ :paths ["src" "resources"]
+ :deps {
+        ont-app/igraph {:mvn/version "0.2.0"}
+        ont-app/vocabulary {:mvn/version "0.2.1"}
+        }
+ :aliases {
+           ;; Informs :build alias, below
+           :test {
+                  :extra-paths ["test"]
+                  :extra-deps {
+                               org.clojure/test.check {:mvn/version "1.1.1"}
+                               io.github.cognitect-labs/test-runner {:git/tag "v0.5.1"
+                                                                     :git/sha "dfb30dd"}
+                               }
+                  }
+           ;; invoke with -T option
+           ;; for help: clojure -A:deps -T:build help/doc
+           :build {
+                   :deps {
+                          io.github.seancorfield/build-clj {:git/tag "v0.8.5"
+                                                            :git/sha "de693d0" 
+                                                            }
+                          }
+                   :ns-default build
+                   }
+           ;; Test cljs version with `clojure -M:test-cljs`
+           ;; For help: clojure -M:test-cljs --help
+           ;; See also https://github.com/Olical/cljs-test-runner
+           :test-cljs {
+                       :extra-deps {olical/cljs-test-runner {:mvn/version "3.8.0"}}
+                       :extra-paths ["test"]
+                       :main-opts ["-m" "cljs-test-runner.main"]
+                       }
+           ;; shadow-cljs support
+           ;; Alias referenced by shadow-cljs.edn's :deps key...
+           :shadow {
+                  :extra-deps {thheller/shadow-cljs {:mvn/version "2.20.14"}}
+                  :extra-paths ["test"]
+                  }
+           
+           } ;; /aliases
+ }

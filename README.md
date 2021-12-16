@@ -45,12 +45,12 @@ common features of IGraph implementations.
 For purposes of this discussion, the term
 [_URI_](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) and
 [_IRI_](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier)
-will be used interchangably. In practice clojure keywords are encoded
+will be used interchangably. In practice Clojure keywords are encoded
 as UTF-8, making them IRIs. The term _URI_ has a much greater
 mind-share, to the extent that any of this stuff has mind-share at
 all.
 
-A KWI is a qualified clojure keyword used exactly the way a URI is
+A KWI is a qualified Clojure keyword used exactly the way a URI is
 used in RDF. Ideally URIs should be importable as KWIs and integrated
 into IGraph-based models, and conversely KWIs should be exportable as
 standard RDF-type URIs.
@@ -130,9 +130,9 @@ We can write a custom method dispatched on the head:
 <a name="h2-resolve-namespace-prefixes-function"></a>
 ## The `resolve-namespace-prefixes` function
 
-It may be the case that you are referencing a graph whose URIs may be
-in need of translating into KWIs. In such cases, you can apply this
-function as a
+It may be the case that you are referencing a graph whose URIs may
+need translating into KWIs. In such cases, you can apply this function
+as a
 [reduce-spo](https://cljdoc.org/d/ont-app/igraph/0.1.5/api/ont-app.igraph.core#reduce-spo):
 
 ```
@@ -188,7 +188,7 @@ The following _subsumedBy_ declarations are defined in _ont-app.igraph-vocabular
 <a name="h2-license"></a>
 ## License
 
-Copyright © 2019-20 Eric D. Scott
+Copyright © 2019-22 Eric D. Scott
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
 

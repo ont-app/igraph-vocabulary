@@ -33,10 +33,11 @@
 
 ;; MINTING NEW KEYWORD IDENTIFIERS
 (defn mint-kwi-dispatch
-  "Returns `dispatch-key` for the `mint-kwi` method
+  "Returns `head-kwi` as `dispatch-key` for the `mint-kwi` method. 
   Where:
+  `head-kwi` is the first argument
   `dispatch-key` is a keyword"
-  [head-kwi & args]
+  [head-kwi & _args]
   head-kwi)
 
 (defmulti mint-kwi
@@ -69,7 +70,7 @@
                           (keyword? x) (name x)
                           (sequential? x) (hash x)
                           (igraph? x) (hash x)
-                          :default (str x))) 
+                          :else (str x))) 
         kwi (keyword _ns (str _name "_" (str/join "_" (map stringify args))))
         ]
     kwi))
@@ -115,7 +116,7 @@ Note: This is typically used when some edn source was generated in an environmen
 ;;;;;;;;;;;;;;;;
 ;; TODO: move to ont-app/rdf library
 
-;; tranfersal function
+;; traversal function
 (defn rdfs-subsumed-by
   "Returns [context acc' #{}] for `g` `context` `acc` `queue`
   Where
@@ -131,7 +132,7 @@ Note: This is typically used when some edn source was generated in an environmen
   "
   ;; TODO: this should probably be moved elsewhere no longer used in this
   ;; module, but should be useful somewhere
-  [g context acc queue]
+  [g context _acc queue]
   [context
    (->> queue
         (traverse g (igraph/traverse-link :rdf/type) context #{})
