@@ -1,4 +1,4 @@
-(defproject ont-app/igraph-vocabulary "0.1.3-SNAPSHOT"
+(defproject ont-app/igraph-vocabulary "0.1.3"
   :description "Utilities for using ont-app/vocabulary in ont-app/igraph"
   :url "https://github.com/ont-app/igraph-vocabulary"
   :license {:name "Eclipse Public License"
@@ -8,7 +8,7 @@
 
   :dependencies [
                  ;; ont-app
-                 [ont-app/igraph "0.1.8-SNAPSHOT"]
+                 [ont-app/igraph "0.1.8"]
                  [ont-app/vocabulary "0.1.4"]
                  ]
 
