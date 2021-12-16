@@ -1,4 +1,4 @@
-(defproject ont-app/igraph-vocabulary "0.1.2"
+(defproject ont-app/igraph-vocabulary "0.1.3"
   :description "Utilities for using ont-app/vocabulary in ont-app/igraph"
   :url "https://github.com/ont-app/igraph-vocabulary"
   :license {:name "Eclipse Public License"
@@ -6,16 +6,10 @@
 
   :min-lein-version "2.9.1"
 
-  :dependencies [;; for deps :tree
-                 [com.google.errorprone/error_prone_annotations "2.1.3"]
-                 [com.google.code.findbugs/jsr305 "3.0.2"]
-                 ;; clojure
-                 [org.clojure/clojure "1.10.1"]
-                 [org.clojure/clojurescript "1.10.597"]
+  :dependencies [
                  ;; ont-app
-                 [ont-app/igraph "0.1.5"]
-                 [ont-app/vocabulary "0.1.2"]
-                 [lein-doo "0.1.11"]
+                 [ont-app/igraph "0.1.8"]
+                 [ont-app/vocabulary "0.1.4"]
                  ]
 
   :plugins [[lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]
@@ -48,6 +42,10 @@
 
   :profiles {:dev {;; need to add dev source path here to get user.clj loaded
                    :source-paths ["src" "dev"]
+                   :dependencies [[org.clojure/clojure "1.10.3"]
+                                  [org.clojure/clojurescript "1.10.896"]
+                                  [lein-doo "0.1.11"]
+                                  ]
                    }}
                    
                    
