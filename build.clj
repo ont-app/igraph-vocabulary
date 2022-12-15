@@ -3,7 +3,7 @@
   (:require [clojure.tools.build.api :as b] ; for b/git-count-revs
             [org.corfield.build :as bb]))
 
-(def lib 'ont-app/igraph-vocabulary')
+(def lib 'ont-app/igraph-vocabulary)
 
 (def version "0.2.0")
 
