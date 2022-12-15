@@ -26,11 +26,4 @@
                     :p
                     :o]])))
            {:rdf/blah {:p #{:o}}}))))
-
-;; TODO fix vocabulary issue #12
-#?(:clj
-   (deftest lstr-test
-     (is (= (str #lstr "asdf@en")
-            "asdf"))))
-
                             

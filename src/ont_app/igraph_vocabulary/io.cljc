@@ -1,7 +1,13 @@
 (ns ont-app.igraph-vocabulary.io
+  {;; Ms Kondo is just wrong here...
+   :clj-kondo/config '{:linters {:unused-namespace {:level :off}
+                                 :unused-referred-var {:level :off}
+                                 :unused-binding {:level :off}
+                                 }}
+   }
   (:require
    [ont-app.igraph.core :as igraph :refer [add reduce-spo]]
-   [ont-app.igraph.graph :as g]
+   [ont-app.igraph.graph :as native-normal]
    [ont-app.vocabulary.core :as voc]
    [ont-app.igraph-vocabulary.core :as igv]
    #?(:clj [clojure.java.io :as io])
@@ -11,18 +17,18 @@
 
 #?(:clj
    (defn read-graph-from-source
-     "Returns an instance of IGraph from `edn-source`
+     "Returns a native-normal graph from `edn-source`
   Where
   - `edn-source` is a file in EDN format"
      [edn-source]
-     (as-> (g/make-graph) g
+     (as-> (native-normal/make-graph) g
        (add g (-> edn-source
                   io/resource
                   slurp
                   read-string))
        (reduce-spo
         igv/resolve-namespace-prefixes
-        (g/make-graph)
+        (native-normal/make-graph)
         g)
        ))
    :cljs

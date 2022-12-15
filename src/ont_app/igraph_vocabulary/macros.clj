@@ -1,6 +1,5 @@
 (ns ont-app.igraph-vocabulary.macros
   (:require
-   [clojure.java.io :as io]
    [ont-app.igraph.core :as igraph :refer [normal-form]]
    [ont-app.igraph-vocabulary.io :as ig-io]
    )

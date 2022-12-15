@@ -1,9 +1,6 @@
 (ns ont-app.igraph-vocabulary.ont
   "The supporting vocabulary for IGraph-related applications"
   (:require
-   [clojure.string :as str]
-   ;;
-   ;;
    [ont-app.vocabulary.core :as voc]
    [ont-app.igraph.core :as igraph
     :refer [add
@@ -21,10 +18,8 @@
   :vann/preferredNamespaceUri "http://rdf.naturallexicon.org/ont-app/igraph/ont#"
   }
  )
-
  
 (def ^:private ontology-ref (atom (make-graph)))
-
 
 (defn ^:private update-ontology! [to-add]
   (swap! ontology-ref add to-add))
@@ -62,7 +57,6 @@ from their actual implementation."
   [:igraph/compiledAs
    :rdf/type :rdf/Property
    :igraph/projectedRange :igraph/CompiledObject
-   :proto/aggregation :proto/Exclusive ;; not part of igraph-vocabulary
    :rdfs/comment "<resource> compiledAs <compiled object>
 Asserts that the construct named in the ontology as <resource> is implemented within the current execution environment as <compiled object>."
    ]
